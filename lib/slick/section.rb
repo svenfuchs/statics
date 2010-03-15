@@ -1,0 +1,3 @@
+class Slick::Section
+end
+

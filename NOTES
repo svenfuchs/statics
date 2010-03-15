@@ -1,0 +1,37 @@
+_posts/
+  2009-07-05-ripper2ruby-modify-and-recompile-your-ruby-code.markdown
+    published_at: 2009-07-05
+    author: svenfuchs
+    categories: codez, ruby
+    tags: foo, bar, baz
+  2009-07-05-using-ruby-1-9-ripper.markdown
+projects
+  i18n.markdown
+  steam.markdown
+contact.markdown
+
+/
+  index.html
+  2009/
+    07/
+      05/
+        ripper2ruby-modify-and-recompile-your-ruby-code.html
+        using-ruby-1-9-ripper.html
+  projects.html
+  projects/
+    i18n.html
+    steam.html
+  contact.html
+
+
+Section type is determined by presence of directories named _posts, _articles etc or Page by default.
+If a Page does not have a content by itself it displays a list of its child Page summaries.
+
+First goals:
+
+1. be able to import a filesystem structure to a nested Hash structure (could be sent as json, serialized to couchdb, sqlite or whatever)
+2. be able to export a simple static site from this data
+
+when order by sort_order, updated_at
+
+
