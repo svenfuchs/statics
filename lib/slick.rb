@@ -1,8 +1,7 @@
+require 'action_view'
+
 module Slick
-  autoload :Blog,    'slick/blog'
-  autoload :Content, 'slick/content'
+  autoload :Builder, 'slick/builder'
   autoload :Data,    'slick/data'
-  autoload :Page,    'slick/page'
-  autoload :Section, 'slick/section'
-  autoload :Site,    'slick/site'
+  autoload :Model,   'slick/model'
 end

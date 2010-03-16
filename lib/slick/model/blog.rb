@@ -1,6 +1,5 @@
-module Slick::Data::FileSystem
+module Slick::Model
   class Blog < Section
   end
 end
-
 

@@ -1,5 +1,5 @@
-require 'slick/core_ext/string/humanize'
-require 'slick/core_ext/string/underscore'
+require 'core_ext/string/humanize'
+require 'core_ext/string/underscore'
 
 class String
   def titleize

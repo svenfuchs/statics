@@ -1,3 +1,0 @@
-class Slick::Content
-end
-

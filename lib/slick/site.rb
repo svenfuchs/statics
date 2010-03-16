@@ -1,2 +1,0 @@
-class Slick::Site
-end

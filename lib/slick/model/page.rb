@@ -1,5 +1,6 @@
-module Slick::Data::FileSystem
+module Slick::Model
   class Page < Section
   end
 end
+
 
