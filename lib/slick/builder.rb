@@ -1,4 +1,5 @@
 module Slick::Builder
+  autoload :Base,    'slick/builder/base'
   autoload :Blog,    'slick/builder/blog'
   autoload :Content, 'slick/builder/content'
   autoload :Page,    'slick/builder/page'
@@ -6,7 +7,7 @@ module Slick::Builder
 
   class << self
     def create(parent, object, data)
-      const_get(object.class.name.split('::').last).new(data, parent)
+      const_get(object.type.camelize).new(data, parent)
     end
   end
 end
