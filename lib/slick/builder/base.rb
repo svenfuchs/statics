@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'logger'
 require 'abstract_controller'
 
 module Slick::Builder
@@ -10,6 +11,7 @@ module Slick::Builder
     end
 
     include AbstractController::Layouts
+    include AbstractController::Helpers
 
     self.view_paths = [File.expand_path('../../views', __FILE__)]
     self.layout 'application'
@@ -19,22 +21,15 @@ module Slick::Builder
     def initialize(data, parent = nil)
       @parent = parent
       @data   = data
-      @config = data[:config] || {}
+      @config = ActiveSupport::InheritableOptions.new(data[:config] || {})
     end
 
+    def local_path(content)
+      content.path.to_s.gsub("#{config.root_dir}/public", '')
+    end
+    helper_method :local_path
+
     protected
-
-      def root_dir
-        @config[:root] ||= File.expand_path('../../../..', __FILE__)
-      end
-
-      def public_dir
-        "#{root_dir}/public"
-      end
-
-      def view_paths
-        p "KEKSE"
-      end
 
       def render(template, target)
         html = super(:template => template, :layout => layout, :locals => data)
@@ -42,22 +37,21 @@ module Slick::Builder
       end
 
       def write(file_name, html)
-        path = [public_dir, path, file_name].compact.join('/')
+        path = [config.root_dir, 'public', path, file_name].compact.join('/')
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'w+') { |f| f.write(html) }
       end
 
     public
 
-      # TODO can this be made smarter in AbstractController::Layouts? doesn't even seem to be used anywhere?
-      # def config
-      #   {}
-      # end
-
       # TODO can this be made smarter in AbstractController::Layouts? just pass it through for now
       def response_body=(body)
         body
       end
+
+      # TODO can this be just be a default in ActionView if !controller.respond_to?(:logger)
+      def logger
+        @logger ||= Logger.new(STDOUT)
+      end
   end
 end
-

@@ -4,10 +4,13 @@ require 'fileutils'
 class BuilderTest < Test::Unit::TestCase
   def setup
     @config  = {
-      :root => TEST_ROOT
+      :title           => "Sven Fuchs",
+      :root_dir        => TEST_ROOT,
+      :assets_dir      => ASSETS_DIR,
+      :stylesheets_dir => ASSETS_DIR + '/stylesheets'
     }
     @section = Slick::Model::Section.new(DATA_DIR)
-    # FileUtils.rm_r(PUBLIC_DIR) rescue Errno::ENOENT
+    FileUtils.rm_r(PUBLIC_DIR) rescue Errno::ENOENT
     FileUtils.mkdir_p(PUBLIC_DIR)
   end
 
@@ -49,16 +52,26 @@ class BuilderTest < Test::Unit::TestCase
 
   test 'build w/ the application (default) layout' do
     @section.attributes['layout'] = 'does_not_exist'
-    assert_match /application layout/, Slick::Builder.create(nil, @section, :section => @section).send(:build_index)
+    assert_match /DOCTYPE html/, Slick::Builder.create(nil, @section, :config => @config, :section => @section).send(:build_index)
   end
 
   test 'build w/ a builder specific layout' do
     section = @section.children.detect { |child| child.layout == nil }
-    assert_match /page layout/, Slick::Builder.create(nil, section, :section => section).send(:build_index)
+    assert_match /page layout/, Slick::Builder.create(nil, section, :config => @config, :section => section).send(:build_index)
   end
 
   test 'build w/ a custom layout' do
     section = @section.children.detect { |child| child.layout == 'custom' }
-    assert_match /custom layout/, Slick::Builder.create(nil, section, :section => section).send(:build_index)
+    assert_match /custom layout/, Slick::Builder.create(nil, section, :config => @config, :section => section).send(:build_index)
+  end
+
+  test 'build w/ a custom template' do
+    section = @section.children.detect { |child| child.template == 'custom' }
+    assert_match /custom template/, Slick::Builder.create(nil, section, :config => @config, :section => section).send(:build_index)
+  end
+
+  test 'build w/ an overwritten page template' do
+    section = @section.children.detect { |child| child.title == 'Contact' }
+    assert_match /Custom Page/, Slick::Builder.create(nil, section, :config => @config, :section => section).send(:build_index)
   end
 end

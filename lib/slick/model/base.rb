@@ -26,6 +26,10 @@ module Slick::Model
       attributes[:layout]
     end
 
+    def template
+      attributes[:template]
+    end
+
     def slug # TODO
       title.underscore.gsub(/[\W]/, '_')
     end
@@ -61,12 +65,12 @@ module Slick::Model
         title = File.basename(path.to_s).gsub(extname, '').titleize
       end
 
-      def parse(content)
-        parse_yaml_preamble(content).merge(:content => content)
+      def parse(body)
+        parse_yaml_preamble(body).merge(:body => body)
       end
 
-      def parse_yaml_preamble(content)
-        content.gsub!(YAML_PREAMBLE, '')
+      def parse_yaml_preamble(body)
+        body.gsub!(YAML_PREAMBLE, '')
         $1 ? YAML.load($1).symbolize_keys : {}
       end
   end

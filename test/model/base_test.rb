@@ -21,8 +21,8 @@ class ModelBaseTest < Test::Unit::TestCase
     assert_equal 'page', model.layout
   end
 
-  test "read stores the file's main content to the content attribute" do
+  test "read stores the file's main body to the body attribute" do
     model = self.model(DATA_DIR + '/articles.html')
-    assert_equal 'Articles Content', model.content
+    assert_equal 'Articles body', model.body
   end
 end

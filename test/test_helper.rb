@@ -14,6 +14,7 @@ require File.expand_path('../test_declarative.rb', __FILE__)
 
 TEST_ROOT  = File.expand_path('../_root', __FILE__)
 DATA_DIR   = TEST_ROOT + '/data'
+ASSETS_DIR = TEST_ROOT + '/assets'
 PUBLIC_DIR = TEST_ROOT + '/public'
 VIEWS_DIR  = TEST_ROOT + '/views'
 

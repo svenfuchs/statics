@@ -15,7 +15,7 @@ module Slick::Builder
     protected
 
       def build_index
-        render("#{section.type}/index", "#{path}.html")
+        render("#{section.type}/#{section.template || 'index'}", "#{path}.html")
       end
 
       def build_children

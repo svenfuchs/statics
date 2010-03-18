@@ -5,7 +5,7 @@ module Slick::Model
     end
 
     def contents
-      @contents ||= type == 'blog' ? content_paths.map { |path| Content.new(path) } : []
+      @contents ||= type == 'blog' ? build_posts : []
     end
 
     def children
@@ -17,6 +17,14 @@ module Slick::Model
     end
 
     protected
+
+      def build_posts
+        build_contents.sort { |lft, rgt| rgt.published_at <=> lft.published_at }
+      end
+
+      def build_contents
+        content_paths.map { |path| Content.new(path) }
+      end
 
       def content_paths
         @content_paths ||= Dir["#{dirname.to_s}/*"].select { |path| path =~ Content::PUBLISHED_AT_PATTERN }

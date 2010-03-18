@@ -1,1 +1,9 @@
-<%= section.title %>
+<%= content_tag :h1, 'Recent posts' %>
+
+<%= content_tag :ul do %>
+  <% section.contents.each do |content| %>
+    <%= content_tag :li do %>
+      <%= link_to(content.title, local_path(content)) %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -19,7 +19,7 @@ class ModelSectionTest < Test::Unit::TestCase
     model = Section.new(DATA_DIR + '/contact.html')
     assert_equal 'page', model.type
     assert_equal 'custom', model.layout
-    assert_equal 'http://github.com/svenfuchs', model.content
+    assert_equal 'http://github.com/svenfuchs', model.body
   end
 
   test 'building a Page from a page directory' do
@@ -45,7 +45,8 @@ class ModelSectionTest < Test::Unit::TestCase
     assert_equal 'blog', model.type
 
     assert_equal 2, model.contents.size
-    assert_equal 'Ripper2Ruby: modify and recompile your Ruby code', model.contents.first.title
+    assert_equal 'Using Ruby 1.9 Ripper', model.contents.first.title
+    assert_equal 'Ripper2Ruby: modify and recompile your Ruby code', model.contents.last.title
 
     assert_equal 3, model.children.size
     assert_equal 'Articles', model.children.first.title
