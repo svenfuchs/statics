@@ -3,8 +3,7 @@ module Slick::Builder
     attr_reader :data, :site, :section, :parent
 
     def initialize(data, parent = nil)
-      @parent = parent
-      @data = data
+      super
       @site, @section = data.values_at(:site, :section)
     end
 

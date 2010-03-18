@@ -7,16 +7,16 @@ module Slick::Model
     PUBLISHED_AT_PATTERN = %r((?:^|\/)([\d]{4}[-_][\d]{2}[-_][\d]{2}))
 
     def permalink # TODO
-      date = published_at
+      date = published_at.to_s.gsub('-', '/')
       slug = title.underscore.gsub(/[\W]/, '_')
-      [date.year, date.month, date.day, slug].join('/')
+      [date, slug].join('/')
     end
 
     protected
 
       def read
         attributes = super
-        attributes.merge(:published_at => published_at_from_filename) unless attributes.key?(:published_at)
+        attributes.merge!(:published_at => published_at_from_filename) unless attributes.key?(:published_at)
         attributes
       end
 

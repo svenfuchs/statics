@@ -1,13 +1,20 @@
 $: << File.expand_path('../../lib', __FILE__)
-
-require 'bundler'
-Bundler.setup
+begin
+  require File.expand_path('../../.bundle/environment', __FILE__)
+rescue LoadError
+  require 'rubygems'
+  require 'bundler'
+  Bundler.setup
+end
 
 require 'test/unit'
 require 'pp'
 require 'slick'
 require File.expand_path('../test_declarative.rb', __FILE__)
 
-HOME_DIR   = File.expand_path('../fixtures/home', __FILE__)
-VIEWS_DIR  = File.expand_path('../../lib/slick/views', __FILE__)
-PUBLIC_DIR = File.expand_path('../../public', __FILE__) # TODO move to config
+TEST_ROOT  = File.expand_path('../_root', __FILE__)
+DATA_DIR   = TEST_ROOT + '/data'
+PUBLIC_DIR = TEST_ROOT + '/public'
+VIEWS_DIR  = TEST_ROOT + '/views'
+
+Slick::Builder::Base.prepend_view_path(VIEWS_DIR)
