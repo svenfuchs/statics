@@ -1,9 +1,8 @@
-<%= content_tag :h1, 'Recent posts' %>
+<h2>Recent Posts</h2>
 
-<%= content_tag :ul do %>
-  <% section.contents.each do |content| %>
-    <%= content_tag :li do %>
-      <%= link_to(content.title, local_path(content)) %>
-    <% end %>
+<ul class="posts">
+  <% section.contents.slice(0, 15).each do |content| %>
+    <li><%= link_to(content.title, local_path(content)) %></li>
   <% end %>
-<% end %>
+</ul>
+<p><%= link_to('Older posts', 'archive.html') %> &rarr;</p>

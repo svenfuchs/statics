@@ -16,23 +16,35 @@ module Slick::Builder
     self.view_paths = [File.expand_path('../../views', __FILE__)]
     self.layout 'application'
 
-    attr_reader :config
+    attr_reader :config, :request
+    helper_method :local_path, :url, :page_title, :request
 
     def initialize(data, parent = nil)
-      @parent = parent
-      @data   = data
-      @config = ActiveSupport::InheritableOptions.new(data[:config] || {})
+      @parent  = parent
+      @data    = data
+      @config  = ActiveSupport::InheritableOptions.new(data[:config] || {})
+      @request = ActionDispatch::Request.new({ 'HTTP_HOST' => 'svenfuchs.com' })
+    end
+
+    def url(content)
+      config[:url] + '/' + local_path(content)
     end
 
     def local_path(content)
-      content.path.to_s.gsub("#{config.root_dir}/public", '')
+      "#{content.permalink}.html" # TODO
     end
-    helper_method :local_path
+
+    def page_title
+      content = data[:content] || section
+      [content.title, config[:title]].compact.join(' - ')
+    end
 
     protected
 
-      def render(template, target)
-        html = super(:template => template, :layout => layout, :locals => data)
+      def render(template, target, options = {})
+        # TODO lookup_context, at least formats, seem messed up after we've rendered once
+        @lookup_context = ActionView::LookupContext.new(self.class._view_paths, details_for_lookup)
+        html = super(options.merge(:template => template, :layout => layout, :locals => data))
         write(target, html) && html
       end
 

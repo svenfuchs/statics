@@ -30,8 +30,8 @@ module Slick::Model
       attributes[:template]
     end
 
-    def slug # TODO
-      title.underscore.gsub(/[\W]/, '_')
+    def slug
+      basename.to_s.gsub(extname, '')
     end
 
     def dirname
@@ -63,6 +63,7 @@ module Slick::Model
 
       def title_from_path
         title = File.basename(path.to_s).gsub(extname, '').titleize
+        title == 'Data' ? nil : title
       end
 
       def parse(body)

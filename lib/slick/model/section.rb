@@ -12,6 +12,12 @@ module Slick::Model
       @children ||= child_paths.map { |path| Section.new(path) }
     end
 
+    def archive
+      contents.group_by { |content| content.published_at.year }.tap do |archive|
+        archive.each { |year, contents| archive[year] = contents.group_by { |c| c.published_at.month } }
+      end
+    end
+
     def read
       super.merge(:type => determine_type)
     end

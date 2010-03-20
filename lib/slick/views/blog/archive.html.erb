@@ -1,0 +1,20 @@
+<h1>Archive</h1>
+<ul id="archive">
+  <% section.archive.each do |year, posts| %>
+    <li>
+      <h2><%= year %></h2>
+      <ul>
+        <% posts.each do |month, posts| %>
+          <li>
+            <h3><%= Date::MONTHNAMES[month.to_i] %></h3>
+            <ul>
+              <% posts.each do |post| %>
+                <li><%= link_to(post.title, local_path(post)) %></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
