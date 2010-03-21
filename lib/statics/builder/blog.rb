@@ -1,4 +1,4 @@
-module Slick::Builder
+module Statics::Builder
   class Blog < Section
     def build
       super

@@ -1,7 +1,7 @@
 require 'pathname'
 require 'active_support/core_ext/module/delegation'
 
-module Slick::Model
+module Statics::Model
   class Base
     YAML_PREAMBLE = /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
 

@@ -1,6 +1,6 @@
 require 'fileutils'
 
-module Slick::Builder
+module Statics::Builder
   class Content < Base
   end
 end

@@ -1,4 +1,4 @@
-module Slick::Model
+module Statics::Model
   class Section < Base
     def initialize(path)
       super

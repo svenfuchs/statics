@@ -2,7 +2,7 @@ require 'fileutils'
 require 'logger'
 require 'abstract_controller'
 
-module Slick::Builder
+module Statics::Builder
   class Base
     class << self
       def controller_path
@@ -24,6 +24,7 @@ module Slick::Builder
       @data    = data
       @config  = ActiveSupport::InheritableOptions.new(data[:config] || {})
       @request = ActionDispatch::Request.new({ 'HTTP_HOST' => 'svenfuchs.com' })
+      super()
     end
 
     def url(content)
@@ -40,11 +41,16 @@ module Slick::Builder
     end
 
     protected
+      
+      def layout
+        layout = content.layout rescue section.layout
+        layout || :default
+      end
 
       def render(template, target, options = {})
         # TODO lookup_context, at least formats, seem messed up after we've rendered once
         @lookup_context = ActionView::LookupContext.new(self.class._view_paths, details_for_lookup)
-        html = super(options.merge(:template => template, :layout => layout, :locals => data))
+        html = super(options.reverse_merge(:template => template, :layout => layout, :locals => data))
         write(target, html) && html
       end
 

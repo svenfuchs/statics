@@ -9,13 +9,13 @@ end
 
 require 'test/unit'
 require 'pp'
-require 'slick'
+require 'Statics'
 require File.expand_path('../test_declarative.rb', __FILE__)
 
-TEST_ROOT  = File.expand_path('../_root', __FILE__)
-DATA_DIR   = TEST_ROOT + '/data'
-ASSETS_DIR = TEST_ROOT + '/assets'
-PUBLIC_DIR = TEST_ROOT + '/public'
-VIEWS_DIR  = TEST_ROOT + '/views'
+ROOT_DIR  = File.expand_path('../_root', __FILE__)
+DATA_DIR   = ROOT_DIR + '/data'
+ASSETS_DIR = ROOT_DIR + '/assets'
+PUBLIC_DIR = ROOT_DIR + '/public'
+VIEWS_DIR  = ROOT_DIR + '/views'
 
-Slick::Builder::Base.prepend_view_path(VIEWS_DIR)
+Statics::Builder::Base.prepend_view_path(VIEWS_DIR)

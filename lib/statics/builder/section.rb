@@ -1,4 +1,4 @@
-module Slick::Builder
+module Statics::Builder
   class Section < Base
     attr_reader :data, :site, :section, :parent
 
@@ -19,7 +19,7 @@ module Slick::Builder
       end
 
       def build_children
-        section.children.each { |child| Slick::Builder.create(self, child, data.merge(:section => child)).build }
+        section.children.each { |child| Statics::Builder.create(self, child, data.merge(:section => child)).build }
       end
 
       def root?

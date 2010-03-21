@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class ModelSectionTest < Test::Unit::TestCase
-  include Slick::Model
+  include Statics::Model
 
   test 'determine_type returns Page for a page file' do
     assert_equal 'page', Section.new(DATA_DIR + '/contact.html').send(:determine_type)

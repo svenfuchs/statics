@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class ModelBaseTest < Test::Unit::TestCase
   def model(path)
-   Slick::Model::Base.new(path)
+   Statics::Model::Base.new(path)
   end
 
   test "slug is the underscored title (so it can be used in urls)" do

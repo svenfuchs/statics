@@ -2,7 +2,7 @@ require 'yaml'
 require 'core_ext/hash/symbolize_keys'
 require 'core_ext/string/titleize'
 
-module Slick::Model
+module Statics::Model
   class Content < Base
     PUBLISHED_AT_PATTERN = %r((?:^|\/)([\d]{4}[-_][\d]{1,2}[-_][\d]{1,2})[-_])
 
